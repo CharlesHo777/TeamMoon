@@ -1,0 +1,247 @@
+  [1m[35m (4.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateAdminUsers (20210216211430)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_email" ON "admin_users" ("email")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_reset_password_token" ON "admin_users" ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210216211430"]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateActiveAdminComments (20210216211448)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "active_admin_comments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "namespace" varchar, "body" text, "resource_type" varchar, "resource_id" integer, "author_type" varchar, "author_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_active_admin_comments_on_resource_type_and_resource_id" ON "active_admin_comments" ("resource_type", "resource_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_active_admin_comments_on_author_type_and_author_id" ON "active_admin_comments" ("author_type", "author_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_active_admin_comments_on_namespace" ON "active_admin_comments" ("namespace")[0m
+  [1m[36mprimary::SchemaMigration Create (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210216211448"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-02-16 21:16:11.105009"], ["updated_at", "2021-02-16 21:16:11.105009"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "admin@example.com"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (2.9ms)[0m  [1m[32mINSERT INTO "admin_users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "admin@example.com"], ["encrypted_password", "$2a$12$ug4o3A7iue5.9OUquTbEl.hCNcrFpeeLEXv.nM/UNd0QCXehhESVq"], ["created_at", "2021-02-16 21:16:37.982937"], ["updated_at", "2021-02-16 21:16:37.982937"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for 127.0.0.1 at 2021-02-16 21:20:42 +0000
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 29.8ms | Allocations: 409)
+Completed 200 OK in 94ms (Views: 45.9ms | ActiveRecord: 0.0ms | Allocations: 4920)
+
+
+Started GET "/" for 127.0.0.1 at 2021-02-16 21:20:47 +0000
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/railties-6.0.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 14.4ms | Allocations: 179)
+Completed 200 OK in 23ms (Views: 15.8ms | ActiveRecord: 0.0ms | Allocations: 3385)
+
+
+Started GET "/admin" for 127.0.0.1 at 2021-02-16 21:20:47 +0000
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 16ms (ActiveRecord: 0.0ms | Allocations: 2920)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2021-02-16 21:20:47 +0000
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 3.3ms | Allocations: 572)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 73.5ms | Allocations: 10256)
+Completed 200 OK in 1706ms (Views: 1676.8ms | ActiveRecord: 1.4ms | Allocations: 251028)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:03 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"2Z/ZLzsjMhwpUxpxmLey/IAEjadk3+1VUsUUpw6YJ6gIRdERTQpTZRaGZVW9WHa+aXS701A/hhNAVzvVsFPx1w==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (1.7ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 12ms (ActiveRecord: 1.7ms | Allocations: 2403)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"2Z/ZLzsjMhwpUxpxmLey/IAEjadk3+1VUsUUpw6YJ6gIRdERTQpTZRaGZVW9WHa+aXS701A/hhNAVzvVsFPx1w==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.4ms | Allocations: 94)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 9.2ms | Allocations: 6065)
+Completed 200 OK in 362ms (Views: 41.1ms | ActiveRecord: 0.0ms | Allocations: 19936)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:14 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"RcDIx+EbdAx68QCh5AGE+TeBsHksAX5QkpZvmoeZ77yUGsD5lzIVdUUkf4XB7kC73vGGDRjhFRaABEDoOVI5ww==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.2ms | Allocations: 1803)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"RcDIx+EbdAx68QCh5AGE+TeBsHksAX5QkpZvmoeZ77yUGsD5lzIVdUUkf4XB7kC73vGGDRjhFRaABEDoOVI5ww==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.4ms | Allocations: 91)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 16.6ms | Allocations: 5495)
+Completed 200 OK in 583ms (Views: 193.6ms | ActiveRecord: 0.0ms | Allocations: 18549)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:27 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"UNhkFgQPjTIQoAO7jEfq0KIAnn89yEtySxXUR6THdJiBAmwocibsSy91fJ+pqC6SS3CoCwkoIDRZh/s1Ggyi5w==", "admin_user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (1.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "admin@example.com"], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/admin
+Completed 302 Found in 348ms (ActiveRecord: 1.4ms | Allocations: 7859)
+
+
+Started GET "/admin" for 127.0.0.1 at 2021-02-16 21:21:27 +0000
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/page/index.html.arb
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/page/index.html.arb (Duration: 58.7ms | Allocations: 16308)
+Completed 200 OK in 75ms (Views: 61.9ms | ActiveRecord: 0.3ms | Allocations: 19351)
+
+
+Started GET "/admin/admin_users" for 127.0.0.1 at 2021-02-16 21:21:30 +0000
+Processing by Admin::AdminUsersController#index as HTML
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/resource/index.html.arb
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "admin_users"[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" ORDER BY "admin_users"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/resource/index.html.arb (Duration: 132.3ms | Allocations: 40147)
+Completed 200 OK in 164ms (Views: 139.4ms | ActiveRecord: 2.6ms | Allocations: 43954)
+
+
+Started DELETE "/admin/admin_users/1" for 127.0.0.1 at 2021-02-16 21:21:33 +0000
+Processing by Admin::AdminUsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"8B0lx4pvjpT2eBAFD4vYZwpx/W7lmD5l2maktG8JJfDTaGQ2Yh9VJtjaPl0OEwXcWRXXb7HNGOeGyo1hd1LZPQ==", "id"=>"1"}
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Destroy (2.5ms)[0m  [1m[31mDELETE FROM "admin_users" WHERE "admin_users"."id" = ?[0m  [["id", 1]]
+  [1m[35m (3.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://127.0.0.1:3000/admin/admin_users
+Completed 302 Found in 55ms (ActiveRecord: 6.6ms | Allocations: 11159)
+
+
+Started GET "/admin/admin_users" for 127.0.0.1 at 2021-02-16 21:21:34 +0000
+Processing by Admin::AdminUsersController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.2ms | Allocations: 1686)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:34 +0000
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.4ms | Allocations: 94)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 9.5ms | Allocations: 5498)
+Completed 200 OK in 79ms (Views: 77.5ms | ActiveRecord: 0.0ms | Allocations: 19136)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:47 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"6Id58G0XDoE3sFZWWxzdziUXQxFr70TUFc6ZoyTDfB/L8jgBhWfVMxkSeA5ahAB1dnNpED+6YlZJYrB2PJiA0g==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 6ms (ActiveRecord: 0.4ms | Allocations: 1802)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"6Id58G0XDoE3sFZWWxzdziUXQxFr70TUFc6ZoyTDfB/L8jgBhWfVMxkSeA5ahAB1dnNpED+6YlZJYrB2PJiA0g==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.2ms | Allocations: 91)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 8.3ms | Allocations: 5494)
+Completed 200 OK in 340ms (Views: 37.3ms | ActiveRecord: 0.0ms | Allocations: 18547)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:21:58 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"F8d0Gxu5ZAaGH1IQP3a8XFNt7MNJBuTrrwdGwX04WeI0sjXq88m/tKi9fEg+7mHnAAnGwh1Twmnzq28UZWOlLw==", "admin_user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "admin@example.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.2ms | Allocations: 1792)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"F8d0Gxu5ZAaGH1IQP3a8XFNt7MNJBuTrrwdGwX04WeI0sjXq88m/tKi9fEg+7mHnAAnGwh1Twmnzq28UZWOlLw==", "admin_user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.3ms | Allocations: 91)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 6.3ms | Allocations: 5490)
+Completed 200 OK in 348ms (Views: 37.0ms | ActiveRecord: 0.0ms | Allocations: 18811)
+
+
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.8ms)[0m  [1m[32mINSERT INTO "admin_users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "teammars@admin.com"], ["encrypted_password", "$2a$12$i5LfrLvgXxfGxY1fPKpgle8oU5OoyDExanSPigt4D0CLFEC2.BMA."], ["created_at", "2021-02-16 21:22:42.404164"], ["updated_at", "2021-02-16 21:22:42.404164"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:23:21 +0000
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"F8d0Gxu5ZAaGH1IQP3a8XFNt7MNJBuTrrwdGwX04WeI0sjXq88m/tKi9fEg+7mHnAAnGwh1Twmnzq28UZWOlLw==", "admin_user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (1.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "admin@example.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 24ms (ActiveRecord: 2.0ms | Allocations: 3231)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"F8d0Gxu5ZAaGH1IQP3a8XFNt7MNJBuTrrwdGwX04WeI0sjXq88m/tKi9fEg+7mHnAAnGwh1Twmnzq28UZWOlLw==", "admin_user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 4.9ms | Allocations: 743)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 39.2ms | Allocations: 9137)
+Completed 200 OK in 566ms (Views: 246.4ms | ActiveRecord: 0.0ms | Allocations: 46916)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-02-16 21:23:32 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"bmGveY+CFbTWr3MSmMAx58wf5okwwREVkHbcd66VrjdNFO6IZ/LOBvgNXUqZWOxcn3vMiGSUN5fM2vWits5S+g==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (1.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/admin/admin_users
+Completed 302 Found in 323ms (ActiveRecord: 1.2ms | Allocations: 5206)
+
+
+Started GET "/admin/admin_users" for 127.0.0.1 at 2021-02-16 21:23:32 +0000
+Processing by Admin::AdminUsersController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/resource/index.html.arb
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "admin_users"[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "admin_users" LIMIT ? OFFSET ?) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" ORDER BY "admin_users"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/resource/index.html.arb (Duration: 98.8ms | Allocations: 39890)
+Completed 200 OK in 117ms (Views: 101.2ms | ActiveRecord: 2.2ms | Allocations: 43937)
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2021-02-16 21:23:35 +0000
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"Nvuj/uU5CewOmqXcZvD818J19EFqIVKUlhLdea+2TcsaDoEqbhb4dUqrfF2BXNC1EdX5DziTv16E1q4vPaLxxg=="}
+  [1m[36mAdminUser Load (0.1ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/admin
+Completed 302 Found in 12ms (ActiveRecord: 0.1ms | Allocations: 2710)
+
+
+Started GET "/admin" for 127.0.0.1 at 2021-02-16 21:23:35 +0000
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 403)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2021-02-16 21:23:36 +0000
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 0.3ms | Allocations: 94)
+  Rendered /Users/decocereus/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 10.1ms | Allocations: 6047)
+Completed 200 OK in 35ms (Views: 33.4ms | ActiveRecord: 0.0ms | Allocations: 19183)
+
+
