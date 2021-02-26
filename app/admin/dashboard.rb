@@ -11,7 +11,7 @@ ActiveAdmin.register_page "Dashboard" do
 
     columns do
       panel "Create new buddy scheme" do
-        
+
       end
     end
 
