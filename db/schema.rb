@@ -48,4 +48,7 @@ ActiveRecord::Schema.define(version: 2021_02_16_211448) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+# Could not dump table "participants" because of following StandardError
+#   Unknown type 'string' for column 'name'
+
 end

@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class CoordUsers::SessionsController < Devise::SessionsController
-
-  def redirect_to_coord_login
-    redirect_to('sessions/new.html.erb')
-  end
-
+  
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

@@ -4,8 +4,4 @@ class ApplicationController < ActionController::Base
     redirect_to('/admin/login')
   end
 
-  def redirect_to_admin_login
-    redirect_to('/coord/login')
-  end
-
 end

@@ -1,4 +1,4 @@
-class CoordUser < ApplicationRecord
+class BuddyScheme < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 end

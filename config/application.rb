@@ -11,6 +11,14 @@ module TeamMars
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.to_prepare do
+      Devise::SessionsController.layout "active_admin_logged_out"
+      # Devise::RegistrationsController.layout ""
+      # Devise::ConfirmationsController.layout ""
+      # Devise::UnlocksController.layout ""
+      # Devise::PasswordsController.layout ""
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
