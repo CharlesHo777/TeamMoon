@@ -7412,3 +7412,168 @@ Processing by Admin::ParticipantsController#index as HTML
 Completed 200 OK in 78ms (Views: 72.0ms | ActiveRecord: 0.4ms | Allocations: 26367)
 
 
+Started GET "/" for 127.0.0.1 at 2021-03-14 10:54:10 +0000
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by AdminUsers::SessionsController#new as HTML
+  Rendering admin_users/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered admin_users/shared/_links.html.erb (Duration: 9.8ms | Allocations: 516)
+  Rendered admin_users/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 26.4ms | Allocations: 3012)
+Completed 200 OK in 180ms (Views: 145.6ms | ActiveRecord: 0.7ms | Allocations: 40649)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-03-14 10:54:14 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"rMakZ7NRLr0VbH2aRk30I+c5QvshtRF8Df66Pe2hS4hbyxCsTJKxqEoI5GjjFvtW4BGUrTAz4uauVJGUBTOPpA==", "admin_user"=>{"email"=>"", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 416)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"rMakZ7NRLr0VbH2aRk30I+c5QvshtRF8Df66Pe2hS4hbyxCsTJKxqEoI5GjjFvtW4BGUrTAz4uauVJGUBTOPpA==", "admin_user"=>{"email"=>"", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering /home/charles/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /home/charles/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/shared/_links.erb (Duration: 1.8ms | Allocations: 534)
+  Rendered /home/charles/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 29.8ms | Allocations: 8387)
+Completed 200 OK in 69ms (Views: 67.9ms | ActiveRecord: 0.0ms | Allocations: 21835)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2021-03-14 10:54:23 +0000
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"rMakZ7NRLr0VbH2aRk30I+c5QvshtRF8Df66Pe2hS4hbyxCsTJKxqEoI5GjjFvtW4BGUrTAz4uauVJGUBTOPpA==", "admin_user"=>{"email"=>"teammars@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mAdminUser Load (2.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["email", "teammars@admin.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admin
+Completed 302 Found in 276ms (ActiveRecord: 2.3ms | Allocations: 7446)
+
+
+Started GET "/admin" for 127.0.0.1 at 2021-03-14 10:54:23 +0000
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering /home/charles/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/page/index.html.arb
+  Rendered /home/charles/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/activeadmin-2.9.0/app/views/active_admin/page/index.html.arb (Duration: 42.6ms | Allocations: 17137)
+Completed 200 OK in 51ms (Views: 44.6ms | ActiveRecord: 0.2ms | Allocations: 20034)
+
+
+Started GET "/admin/buddy_schemes" for 127.0.0.1 at 2021-03-14 10:54:25 +0000
+Processing by Admin::BuddySchemesController#index as HTML
+  [1m[36mAdminUser Load (0.1ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.3ms | Allocations: 2451)
+
+
+  
+ActiveRecord::StatementInvalid (Could not find table 'buddy_schemes'):
+  
+activerecord (6.0.3.5) lib/active_record/connection_adapters/sqlite3_adapter.rb:358:in `table_structure'
+activerecord (6.0.3.5) lib/active_record/connection_adapters/abstract/schema_statements.rb:114:in `columns'
+activerecord (6.0.3.5) lib/active_record/connection_adapters/schema_cache.rb:76:in `columns'
+activerecord (6.0.3.5) lib/active_record/connection_adapters/schema_cache.rb:82:in `columns_hash'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:488:in `load_schema!'
+activerecord (6.0.3.5) lib/active_record/attributes.rb:247:in `load_schema!'
+activerecord (6.0.3.5) lib/active_record/attribute_decorators.rb:50:in `load_schema!'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:478:in `block in load_schema'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:475:in `synchronize'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:475:in `load_schema'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:357:in `columns'
+activerecord (6.0.3.5) lib/active_record/model_schema.rb:404:in `column_names'
+activeadmin (2.9.0) lib/active_admin/resource.rb:117:in `resource_column_names'
+activeadmin (2.9.0) lib/active_admin/order_clause.rb:27:in `table'
+activeadmin (2.9.0) lib/active_admin/order_clause.rb:32:in `table_column'
+activeadmin (2.9.0) lib/active_admin/order_clause.rb:23:in `to_sql'
+activeadmin (2.9.0) lib/active_admin/order_clause.rb:36:in `sql'
+activeadmin (2.9.0) lib/active_admin/order_clause.rb:19:in `apply'
+activeadmin (2.9.0) lib/active_admin/resource_controller/data_access.rb:208:in `apply_sorting'
+activeadmin (2.9.0) lib/active_admin/resource_controller/data_access.rb:59:in `block in find_collection'
+activeadmin (2.9.0) lib/active_admin/resource_controller/data_access.rb:58:in `each'
+activeadmin (2.9.0) lib/active_admin/resource_controller/data_access.rb:58:in `find_collection'
+activeadmin (2.9.0) lib/active_admin/resource_controller/data_access.rb:44:in `collection'
+inherited_resources (1.12.0) lib/inherited_resources/actions.rb:7:in `index'
+activeadmin (2.9.0) lib/active_admin/resource_controller/streaming.rb:12:in `index'
+actionpack (6.0.3.5) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.0.3.5) lib/abstract_controller/base.rb:195:in `process_action'
+actionpack (6.0.3.5) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.0.3.5) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.0.3.5) lib/active_support/callbacks.rb:135:in `run_callbacks'
+actionpack (6.0.3.5) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.0.3.5) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.0.3.5) lib/action_controller/metal/instrumentation.rb:33:in `block in process_action'
+activesupport (6.0.3.5) lib/active_support/notifications.rb:180:in `block in instrument'
+activesupport (6.0.3.5) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.0.3.5) lib/active_support/notifications.rb:180:in `instrument'
+actionpack (6.0.3.5) lib/action_controller/metal/instrumentation.rb:32:in `process_action'
+actionpack (6.0.3.5) lib/action_controller/metal/params_wrapper.rb:245:in `process_action'
+activerecord (6.0.3.5) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.5) lib/abstract_controller/base.rb:136:in `process'
+actionview (6.0.3.5) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.0.3.5) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.5) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.5) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.5) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.5) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.5) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.5) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.5) lib/action_dispatch/routing/route_set.rb:834:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/cookies.rb:648:in `call'
+activerecord (6.0.3.5) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.5) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.5) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.5) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.5) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.5) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.5) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.5) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.5) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.5) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.5) lib/rails/engine.rb:527:in `call'
+puma (4.3.7) lib/puma/configuration.rb:228:in `call'
+puma (4.3.7) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.7) lib/puma/server.rb:472:in `process_client'
+puma (4.3.7) lib/puma/server.rb:328:in `block in run'
+puma (4.3.7) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/admin/logout" for 127.0.0.1 at 2021-03-14 10:54:33 +0000
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"q01dGUtfJqYkPxu3RFoaTIQtnSpXpe6al2yz+oo1qESKPre2KcE5OmsbrPn+Jimw8fom17Kow0TVZs2e2VjxQg=="}
+  [1m[36mAdminUser Load (0.1ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admin
+Completed 302 Found in 13ms (ActiveRecord: 0.1ms | Allocations: 2587)
+
+
+Started GET "/admin" for 127.0.0.1 at 2021-03-14 10:54:33 +0000
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 317)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2021-03-14 10:54:33 +0000
+Processing by AdminUsers::SessionsController#new as HTML
+  Rendering admin_users/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered admin_users/shared/_links.html.erb (Duration: 0.2ms | Allocations: 79)
+  Rendered admin_users/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 3.6ms | Allocations: 1021)
+Completed 200 OK in 35ms (Views: 33.7ms | ActiveRecord: 0.0ms | Allocations: 14632)
+
+
