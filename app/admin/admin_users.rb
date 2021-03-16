@@ -1,11 +1,11 @@
 ActiveAdmin.register AdminUser do
-  menu priority: 4
+  menu priority: 2, label: proc {"Administrators and Coordinators"}
 
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation, :is_administrator, :verified
 
   index do
-    panel "All Administrators" do
-      para "Below is the list of all administrators of the Buddy Scheme system. For the scheme coordinators, click \"Coordinator Users\" on the navigation panel at the top of this page"
+    panel "All Administrators and Coordinators" do
+      para "Below is the list of ALL system administrators and scheme coordinators. To see ONLY administrators or ONLY coordinators, use the FILTER on the right side of the page."
     end
 
     selectable_column
@@ -18,15 +18,23 @@ ActiveAdmin.register AdminUser do
   end
 
   filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
+  filter :is_administrator
+  # filter :current_sign_in_at
+  # filter :sign_in_count
+  # filter :created_at
 
   form do |f|
+
+    panel "Create a new account" do
+      para "If you're creating an ADMINISTRATOR account, please MARK the \"is_administrator\" option;"
+      para "if you're creating a COORDINATOR account, please keep that option UNMARKED."
+    end
+
     f.inputs do
       f.input :email
       f.input :password
       f.input :password_confirmation
+      f.input :is_administrator
     end
     f.actions
   end

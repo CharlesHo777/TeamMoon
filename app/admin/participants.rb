@@ -1,5 +1,5 @@
 ActiveAdmin.register Participant do
-  menu priority: 2
+  menu priority: 5
 
   # permit_params :email, :password, :password_confirmation
 
