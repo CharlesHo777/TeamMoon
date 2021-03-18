@@ -8,7 +8,23 @@ ActiveAdmin.setup do |config|
   config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
   config.localize_format = :long
 
-  
+  config.load_paths = [File.expand_path('app/admin', Rails.root), File.expand_path('app/coord', Rails.root)]
+
+  # config.default_namespace = :coord
+
+  config.namespace :admin do |admin|
+    admin.site_title = "Administrator System"
+    admin.authentication_method = :authenticate_admin_user!
+    admin.current_user_method = :current_admin_user
+    admin.logout_link_path = :destroy_admin_user_session_path
+  end
+
+  config.namespace :coord do |coord|
+    coord.site_title = "Coordinator System"
+    coord.authentication_method = :authenticate_coord_user!
+    coord.current_user_method = :current_coord_user
+    coord.logout_link_path = :destroy_coord_user_session_path
+  end
 
   # == Site Title
   #

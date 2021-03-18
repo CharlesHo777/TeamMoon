@@ -1,12 +1,38 @@
 Rails.application.routes.draw do
 
-  devise_scope :admin_user do
-      root to: 'admin_users/sessions#new'
-      get '/admin/login', to: 'admin_users/sessions#new'
-  end
+  # devise_for :admin_users, path: 'admin_users', controllers: { sessions: "admin_users/sessions" }
+  # devise_for :coord_users, path: 'coord_users', controllers: { sessions: "coord_users/sessions" }
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config.merge({path: '/admin'})
+  devise_for :coord_users, ActiveAdmin::Devise.config.merge({path: '/coord'})
 
   ActiveAdmin.routes(self)
+
+  devise_scope :admin_user do
+    get '/admin/login', to: 'admin_users/sessions#new'
+    get '/admin', to: 'admin_users/sessions#new'
+
+    post '/admin_users/sign_in', to: 'admin_users/sessions#create'
+    delete '/admin_users/sign_out', to: 'admin_users/sessions#destroy'
+  end
+
+  namespace :admin do
+    resources :dashboard, :admin_users, :buddy_schemes, :participants
+  end
+
+  devise_scope :coord_user do
+    root to: 'coord_users/sessions#new'
+
+    get '/coord/login', to: 'coord_users/sessions#new'
+    get '/coord', to: 'coord_users/sessions#new'
+    get '/login', to: 'coord_users/sessions#new'
+
+    post '/coord_users/sign_in', to: 'coord_users/sessions#create'
+    delete '/coord_users/sign_out', to: 'coord_users/sessions#destroy'
+  end
+
+  namespace :coord do
+    resources :dashboard
+  end
 
 end

@@ -2,12 +2,12 @@
 
 class AdminUsers::SessionsController < Devise::SessionsController
 
+  # include Accessible
+  # skip_before_action :check_user, only: :destroy
+
   def new
     Devise::SessionsController.layout "active_admin_logged_out"
-    self.resource = resource_class.new(sign_in_params)
-    clean_up_passwords(resource)
-    yield resource if block_given?
-    respond_with(resource, serialize_options(resource))
+    super
   end
 
   # before_action :configure_sign_in_params, only: [:create]
@@ -18,14 +18,14 @@ class AdminUsers::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super
+  end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    super
+  end
 
   # protected
 

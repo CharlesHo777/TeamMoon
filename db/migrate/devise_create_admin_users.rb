@@ -9,12 +9,6 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.0]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
-      ## Administrator or Coordinator
-      t.boolean :is_administrator,       null: false, default: false
-
-      ## Account approval for new users
-      t.boolean :verified,          null: false, default: true
-
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

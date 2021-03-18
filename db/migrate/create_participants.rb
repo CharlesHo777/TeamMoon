@@ -10,7 +10,6 @@ class CreateParticipants < ActiveRecord::Migration[6.0]
       t.string :department
       t.string :program
       t.integer :year
-
       t.string :buddy
 
       t.timestamps

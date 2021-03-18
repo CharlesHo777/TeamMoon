@@ -34,14 +34,25 @@ ActiveRecord::Schema.define(version: 2021_02_16_211448) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_administrator", default: false, null: false
-    t.boolean "verified", default: true, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
 # Could not dump table "buddy_schemes" because of following StandardError
 #   Unknown type 'string' for column 'name'
+
+  create_table "coord_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "verified", default: true, null: false
+    t.index ["email"], name: "index_coord_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_coord_users_on_reset_password_token", unique: true
+  end
 
 # Could not dump table "participants" because of following StandardError
 #   Unknown type 'string' for column 'name'
