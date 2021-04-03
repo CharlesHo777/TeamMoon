@@ -57,3 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Admin interface 
 gem 'activeadmin'
 gem 'devise'
+
+#plugin lah
+gem 'active_admin_scoped_collection_actions'

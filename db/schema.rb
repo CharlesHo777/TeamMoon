@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_211448) do
+ActiveRecord::Schema.define(version: 2021_03_19_120014) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_02_16_211448) do
   end
 
   create_table "admin_users", force: :cascade do |t|
+    t.string "name", default: ""
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -38,23 +39,44 @@ ActiveRecord::Schema.define(version: 2021_02_16_211448) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-# Could not dump table "buddy_schemes" because of following StandardError
-#   Unknown type 'string' for column 'name'
+  create_table "buddy_schemes", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.integer "year", default: 0, null: false
+    t.integer "capacity", default: 9999, null: false
+    t.text "description", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "coord_users", force: :cascade do |t|
+    t.string "name", default: ""
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.boolean "verified", default: false, null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "verified", default: true, null: false
     t.index ["email"], name: "index_coord_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_coord_users_on_reset_password_token", unique: true
   end
 
-# Could not dump table "participants" because of following StandardError
-#   Unknown type 'string' for column 'name'
+  create_table "participants", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "kcl_email", null: false
+    t.integer "gender", default: 0, null: false
+    t.integer "buddy_scheme_id", default: -1, null: false
+    t.boolean "is_mentor", default: false, null: false
+    t.string "faculty", default: "", null: false
+    t.string "department", default: "", null: false
+    t.string "program", default: "", null: false
+    t.integer "year", default: 0, null: false
+    t.string "buddy", default: "", null: false
+    t.boolean "need_special_care", default: false, null: false
+    t.integer "gender_preference", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end

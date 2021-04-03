@@ -1,7 +1,13 @@
 ActiveAdmin.register CoordUser, namespace: :admin do
   menu priority: 3, label: proc {"Coordinators"}
 
+  config.batch_actions = true
+  config.scoped_collection_actions_if = -> { true }
   permit_params :email, :password, :password_confirmation, :verified
+
+  scoped_collection_action :verify_coord_users, title: 'Verify Selected New Coordinator Accounts' do
+    scoped_collection_records.update_all(verified: true)
+  end
 
   index do
     panel "Coordinators" do

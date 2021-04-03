@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser, namespace: :admin do
   menu priority: 2, label: proc {"Administrators"}
-
+  
   permit_params :email, :password, :password_confirmation
 
   index do

@@ -13,7 +13,7 @@ module TeamMars
 
     config.to_prepare do
       Devise::SessionsController.layout "active_admin_logged_out"
-      # Devise::RegistrationsController.layout ""
+      Devise::RegistrationsController.layout "active_admin_logged_out"
       # Devise::ConfirmationsController.layout ""
       # Devise::UnlocksController.layout ""
       # Devise::PasswordsController.layout ""
