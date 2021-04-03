@@ -2,6 +2,15 @@ ActiveAdmin.register BuddyScheme, namespace: :admin do
   menu priority: 4
   permit_params :name, :year, :capacity, :description
 
+  member_action :lock, method: :put do
+    resource.lock!
+    redirect_to resource_path, notice: "Locked!"
+  end
+
+  action_item :pair_up, only: [:show] do
+    link_to 'Pair With A Buddy', '#', :onclick => :pair_with_a_buddy
+  end
+
   sidebar "Options", only: [:show, :edit] do
     link_to "View Members Of This Buddy Scheme", admin_buddy_scheme_members_path(resource)
   end
@@ -56,6 +65,12 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
     link_to 'Pair With A Buddy', '#', :onclick => :pair_with_a_buddy
   end
 
+
+  member_action :pair_up, method: [:get, :post] do
+    resource.pair_up!
+    redirect_to resource_path, notice: "Pair With A Buddy"
+  end
+
   index do
     selectable_column
     id_column
@@ -96,9 +111,11 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
   filter :gender_preference, as: :select, collection: [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]]
 
   form do |f|
+  #  form (@participant, :namespace => 'information_form') do |f|
     f.object.buddy_scheme_id = -1
     f.inputs do
 
+      if !params[:dopair]
       f.input :name
       f.input :kcl_email
 
@@ -119,8 +136,14 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
       f.input :gender_preference, :as => :select, :collection => [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]]
 
       f.input :participant_id
+    end
 
     end
+
+    f.inputs 'pair' do
+      f.input :participant_id
+    end
+
     f.actions
   end
 
