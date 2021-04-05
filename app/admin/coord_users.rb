@@ -30,6 +30,25 @@ ActiveAdmin.register CoordUser, namespace: :admin do
   filter :created_at
   filter :verified
 
+  show do
+    panel "Options" do
+      link_to("Go Back To Coordinators", admin_coord_users_path())
+    end
+
+    attributes_table do
+      row :name
+      row :email
+      row :reset_password_token
+      row :reset_password_sent_at
+      row :verified
+      row :remember_created_at
+      row :created_at
+      row :updated_at
+    end
+
+    active_admin_comments
+  end
+
   form do |f|
     f.object.verified = true
     f.inputs do

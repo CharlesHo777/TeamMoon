@@ -1,6 +1,10 @@
 ActiveAdmin.register_page "Dashboard", namespace: :admin do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
+  action_item :view_my_account_info do
+    link_to("View My Account Info", "/admin/admin_users/#{current_admin_user.id}")
+  end
+
   action_item :edit_my_account do
     link_to("Edit My Account", edit_admin_user_registration_path)
   end

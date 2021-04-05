@@ -5,15 +5,13 @@ ActiveAdmin.register Participant, namespace: :admin do
   config.scoped_collection_actions_if = -> { true }
   permit_params :name, :kcl_email, :gender, :buddy_scheme_id, :is_mentor, :faculty, :department, :program, :year, :participant_id, :need_special_care, :gender_preference
 
-  # controller do
-  #   def participant_params
-  #     params.require(:participant).permit(:name, :kcl_email, :is_mentor, :department, :program, :year, :buddy)
-  #   end
-  # end
+  controller do
+
+  end
 
   scope :all, default: true
   scope :not_in_a_buddy_scheme do |participants|
-    participants.where("buddy_scheme_id <= ?", 0)
+    participants.where('buddy_scheme_id <= ?', 0)
   end
 
   scoped_collection_action :scoped_collection_update, title: 'Add Selected To A Buddy Scheme', form: -> do
@@ -25,9 +23,9 @@ ActiveAdmin.register Participant, namespace: :admin do
     scoped_collection_records.update_all(buddy_scheme_id: -1)
   end
 
-  sidebar "Options", only: [:show, :edit] do
+  sidebar "Options", only: [:show, :edit], :if => proc {resource.is_mentor} do
     ul do
-      li link_to "View Buddy/Buddies Of This Participant", admin_participant_buddies_path(resource)
+      li link_to "View Paired Mentee/Mentees Of This Mentor", admin_participant_buddies_path(resource)
     end
   end
 
@@ -53,10 +51,12 @@ ActiveAdmin.register Participant, namespace: :admin do
 
     column :faculty
     column :department
-    column :program
+    column :program do |participant|
+      participant.program.truncate 20
+    end
     column :year
 
-    column :participant_id do |participant|
+    column "Paired Buddy" do |participant|
       Participant.buddy_map(participant.participant_id)
     end
 
@@ -84,6 +84,10 @@ ActiveAdmin.register Participant, namespace: :admin do
   filter :gender_preference, as: :select, collection: [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]]
 
   show do
+    panel "Options" do
+      link_to("Go Back To Participants", admin_participants_path())
+    end
+
     attributes_table do
       row :name
       row :kcl_email
@@ -106,10 +110,11 @@ ActiveAdmin.register Participant, namespace: :admin do
         Participant.gender_preference_map(participant.gender_preference)
       end
     end
+
+    active_admin_comments
   end
 
   form do |f|
-    f.object.buddy_scheme_id = -1
     f.inputs do
 
       f.input :name
@@ -119,17 +124,17 @@ ActiveAdmin.register Participant, namespace: :admin do
 
       f.input :buddy_scheme_id, :label => 'Choose A Scheme (Or Leave It Blank)', :as => :select, :collection => [['None', -1]] + BuddyScheme.all.map{|scheme| [scheme.name, scheme.id]}, :include_blank => false
 
-      f.input :is_mentor, :label => 'Mentor or Mentee', :as => :select, :collection => [['Mentor', true], ['Mentee', false]]
+      f.input :is_mentor, :label => 'Mentor or Mentee', :as => :select, :collection => [['Mentor', true], ['Mentee', false]], :include_blank => false
 
-      f.input :faculty, :label => 'Faculty', :as => :select, :collection => Participant.faculties
+      f.input :faculty, :label => 'Faculty', :as => :select, :collection => Participant.faculties, :include_blank => false
 
-      f.input :department, :label => 'Department', :as => :select, :collection => Participant.departments
+      f.input :department, :label => 'Department', :as => :select, :collection => Participant.departments, :include_blank => false
 
       f.input :program
       f.input :year, :label => 'Year (e.g. "1" for Year 1)'
 
       f.input :need_special_care
-      f.input :gender_preference, :as => :select, :collection => [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]]
+      f.input :gender_preference, :as => :select, :collection => [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]], :include_blank => false
 
       f.input :participant_id
 
@@ -150,6 +155,10 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
   end
 
   index do
+    panel "Options" do
+      link_to("Go Back To #{participant.name}", "/admin/participants/#{participant.id}")
+    end
+
     selectable_column
     id_column
     column :name
@@ -165,10 +174,15 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
 
     column :faculty
     column :department
-    column :program
+    column :program do |participant|
+      participant.program.truncate 20
+    end
     column :year
 
-    column :participant_id
+    column "Paired Buddy" do |participant|
+      Participant.buddy_map(participant.participant_id)
+    end
+
     column :need_special_care
     column :gender_preference do |participant|
       Participant.gender_preference_map(participant.gender_preference)
@@ -177,6 +191,10 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
   end
 
   show do
+    panel "Options" do
+      link_to("Go Back To Buddies", admin_participant_buddies_path(Participant.find(resource.participant_id)))
+    end
+
     attributes_table do
       row :name
       row :kcl_email
@@ -197,6 +215,8 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
         Participant.gender_preference_map(participant.gender_preference)
       end
     end
+
+    active_admin_comments
   end
 
 end

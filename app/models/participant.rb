@@ -30,8 +30,8 @@ class Participant < ApplicationRecord
   def self.buddy_map(buddy_id)
     if Participant.exists?(id: [buddy_id])
       Participant.find(buddy_id).name
-    elsif buddy_id == -2
-      "(Multiple Buddies)"
+    elsif buddy_id <= -2
+      "[Multiple Buddies]"
     else
       "(Not Paired)"
     end
