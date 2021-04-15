@@ -42,6 +42,7 @@ ActiveAdmin.register BuddyScheme, namespace: :admin do
       row :year
       row :capacity
       row :description
+      row :created_at
     end
     active_admin_comments
   end
@@ -63,7 +64,10 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
 
   config.batch_actions = true
   config.scoped_collection_actions_if = -> { true }
-  permit_params :name, :kcl_email, :gender, :buddy_scheme_id, :is_mentor, :faculty, :department, :program, :year, :participant_id, :need_special_care, :gender_preference
+  permit_params :name, :gender, :buddy_scheme_id, :is_mentor, :faculty, :department, :program, :year, :participant_id, :need_special_care, :gender_preference
+
+  batch_action :do_nothing do
+  end
 
   batch_action :do_nothing do
   end
@@ -97,7 +101,7 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
             cur_mentor.update(participant_id: -2)
           elsif cur_mentor.participant_id <= -2
             cur_reverse_buddy_count = cur_mentor.participant_id
-            cur_mentpr.update(participant_id: (cur_reverse_buddy_count - 1))
+            cur_mentor.update(participant_id: (cur_reverse_buddy_count - 1))
           else
             cur_mentor.update(participant_id: cur_mentee.id)
           end
@@ -111,12 +115,38 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
       end
     end
   end
-  scoped_collection_action :remove_from_scheme, title: 'Remove Selected From This Buddy Scheme' do
-    scoped_collection_records.update_all(buddy_scheme_id: -1)
+
+  scoped_collection_action :unpair_selected, title: 'UNPAIR Selected Users' do
+    paired_mentors = scoped_collection_records.where(is_mentor: true).where('participant_id != ?', -1)
+
+    while !paired_mentors.empty? do
+      cur_mentor = paired_mentors.order('participant_id ASC').first!
+      if cur_mentor.participant_id != -1
+        Participant.where(is_mentor: false).where(["participant_id = :participant_id", {participant_id: cur_mentor.id}]).update_all(participant_id: -1)
+      else
+
+      end
+      cur_mentor.update(participant_id: -1)
+      paired_mentors = scoped_collection_records.where(is_mentor: true).where('participant_id != ?', -1)
+    end
+
+    paired_mentees = scoped_collection_records.where(is_mentor: false).where('participant_id != ?', -1)
+
+    while !paired_mentees.empty? do
+      cur_mentee = paired_mentees.first!
+      if Participant.where(is_mentor: true).exists?(cur_mentee.participant_id)
+        cur_mentor = Participant.where(is_mentor: true).find(cur_mentee.participant_id)
+        cur_mentor.update(participant_id: -1)
+      else
+
+      end
+      cur_mentee.update(participant_id: -1)
+      paired_mentees = scoped_collection_records.where(is_mentor: false).where('participant_id != ?', -1)
+    end
   end
 
-  action_item :pair_up, only: [:show] do
-    link_to 'Pair With A Buddy', '#', :onclick => :pair_with_a_buddy
+  scoped_collection_action :remove_from_scheme, title: 'Remove Selected From This Buddy Scheme' do
+    scoped_collection_records.update_all(buddy_scheme_id: -1)
   end
 
   index do
@@ -127,7 +157,7 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
     selectable_column
     id_column
     column :name
-    column :kcl_email
+    column :email
     column :gender do |participant|
       Participant.gender_map(participant.gender)
     end
@@ -153,7 +183,7 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
   end
 
   filter :name, as: :string
-  filter :kcl_email, as: :string
+  filter :email, as: :string
 
   filter :gender, as: :select, collection: [['Male', 1], ['Female', 2], ['Other', 0]]
 
@@ -175,7 +205,7 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
 
     attributes_table do
       row :name
-      row :kcl_email
+      row :email
       row :gender do |participant|
         Participant.gender_map(participant.gender)
       end
@@ -187,22 +217,24 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
       row :department
       row :program
       row :year
-      row :participant_id
+      row "Paired Buddy" do |participant|
+        Participant.detailed_buddy_map(participant.participant_id)
+      end
       row :need_special_care
       row :gender_preference do |participant|
         Participant.gender_preference_map(participant.gender_preference)
       end
+      row :created_at
     end
 
     active_admin_comments
   end
 
   form do |f|
+    f.object.buddy_scheme_id = buddy_scheme.id
     f.inputs do
 
       f.input :name
-      f.input :kcl_email
-
       f.input :gender, :label => 'Gender', :as => :select, :collection => [['Other', 0], ['Male', 1], ['Female', 2]], :include_blank => false
 
       f.input :buddy_scheme_id, :label => 'Choose A Scheme (Or Leave It Blank)', :as => :select, :collection => [['None', -1]] + BuddyScheme.all.map{|scheme| [scheme.name, scheme.id]}, :include_blank => false
@@ -218,8 +250,6 @@ ActiveAdmin.register Participant, as: 'Member', namespace: :admin do
 
       f.input :need_special_care
       f.input :gender_preference, :as => :select, :collection => [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]], :include_blank => false
-
-      f.input :participant_id
 
     end
     f.actions

@@ -1,0 +1,30 @@
+<div class="p-3 mb-8 bg-secondary text-center text-white" style="margin-bottom:0">
+  <p class="h3 font-weight-italic">
+  Questions
+  </p>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-light navabr-dark">
+<td>
+    <%= link_to new_survey_question_path(@survey) do %>
+    <button type="button class="btn btn-light btn-sm">New Question</button>
+  <% end %>
+</td>
+
+<td>
+  <%= link_to surveys_path(@survey) do %>
+  <button type="button class="btn btn-light btn-sm">Back to Questionnaires</button>
+<% end %>
+</td>
+</nav>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th><%= t('rapidfire.questions.question') -%></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "question", collection: @questions %>
+  </tbody>
+</table>

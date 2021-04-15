@@ -59,5 +59,9 @@ build-iPhoneSimulator/
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
 
+/tmp
+/log
+/node_modules
+
 # End of https://www.toptal.com/developers/gitignore/api/ruby
 

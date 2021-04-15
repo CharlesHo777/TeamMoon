@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
@@ -13,17 +13,27 @@ gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'rapidfire'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+
+# OAuth
+gem 'omniauth', '~> 1'
+gem 'omniauth-oauth2', '~> 1.7'
+# OmniAuth CSRF protection
+gem 'omniauth-rails_csrf_protection', '~> 0.1.2'
+# REST calls to Microsoft Graph
+gem 'httparty', '~> 0.18.1'
+# Session storage in database
+gem 'activerecord-session_store', '~> 1.1.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -54,9 +64,15 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-# Admin interface 
+# Admin interface
 gem 'activeadmin'
 gem 'devise'
-
-#plugin lah
+# last version
 gem 'active_admin_scoped_collection_actions'
+
+
+#Chat
+gem 'bootstrap', '~> 4.3.1'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'redis'

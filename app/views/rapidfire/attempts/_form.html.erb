@@ -1,0 +1,16 @@
+<div class="p-3 mb-3 bg-secondary text-center text-white" style="margin-bottom:0">
+  <p class="h6 font-weight-italic">
+  Please answer this questions.
+  </p>
+</div>
+
+<p><%= @survey.introduction %></p>
+
+<%= form_for([@survey, @attempt_builder]) do |f| %>
+  <%- @attempt_builder.answers.each do |answer| %>
+    <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+      <%= render_answer_form_helper(answer, answer_form) %>
+    <% end %>
+  <% end %>
+  <%= f.submit submit_text %>
+<% end %>

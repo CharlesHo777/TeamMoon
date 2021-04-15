@@ -3,7 +3,7 @@ ActiveAdmin.register Participant, namespace: :admin do
 
   config.batch_actions = true
   config.scoped_collection_actions_if = -> { true }
-  permit_params :name, :kcl_email, :gender, :buddy_scheme_id, :is_mentor, :faculty, :department, :program, :year, :participant_id, :need_special_care, :gender_preference
+  permit_params :email, :password, :password_confirmation, :name, :gender, :buddy_scheme_id, :is_mentor, :faculty, :department, :program, :year, :participant_id, :need_special_care, :gender_preference
 
   controller do
 
@@ -22,10 +22,58 @@ ActiveAdmin.register Participant, namespace: :admin do
   scoped_collection_action :remove_from_buddy_scheme, title: 'Remove From Buddy Scheme' do
     scoped_collection_records.update_all(buddy_scheme_id: -1)
   end
+  scoped_collection_action :unpair_selected, title: 'UNPAIR Selected Users' do
+    paired_mentors = scoped_collection_records.where(is_mentor: true).where('participant_id != ?', -1)
+
+    while !paired_mentors.empty? do
+      cur_mentor = paired_mentors.order('participant_id ASC').first!
+      if cur_mentor.participant_id != -1
+        Participant.where(is_mentor: false).where(["participant_id = :participant_id", {participant_id: cur_mentor.id}]).update_all(participant_id: -1)
+      else
+
+      end
+      cur_mentor.update(participant_id: -1)
+      paired_mentors = scoped_collection_records.where(is_mentor: true).where('participant_id != ?', -1)
+    end
+
+    paired_mentees = scoped_collection_records.where(is_mentor: false).where('participant_id != ?', -1)
+
+    while !paired_mentees.empty? do
+      cur_mentee = paired_mentees.first!
+      if Participant.where(is_mentor: true).exists?(cur_mentee.participant_id)
+        cur_mentor = Participant.where(is_mentor: true).find(cur_mentee.participant_id)
+        cur_mentor.update(participant_id: -1)
+      else
+
+      end
+      cur_mentee.update(participant_id: -1)
+      paired_mentees = scoped_collection_records.where(is_mentor: false).where('participant_id != ?', -1)
+    end
+  end
 
   sidebar "Options", only: [:show, :edit], :if => proc {resource.is_mentor} do
     ul do
       li link_to "View Paired Mentee/Mentees Of This Mentor", admin_participant_buddies_path(resource)
+    end
+  end
+
+  scope :all, default: true
+  scope :not_in_a_buddy_scheme do |participants|
+    participants.where("buddy_scheme_id <= ?", 0)
+  end
+
+  scoped_collection_action :scoped_collection_update, title: 'Add Selected To A Buddy Scheme', form: -> do
+    {
+      buddy_scheme_id: BuddyScheme.all.map{|scheme| [scheme.name, scheme.id]}
+    }
+  end
+  scoped_collection_action :remove_from_buddy_scheme, title: 'Remove From Buddy Scheme' do
+    scoped_collection_records.update_all(buddy_scheme_id: -1)
+  end
+
+  sidebar "Options", only: [:show, :edit] do
+    ul do
+      li link_to "View Buddy/Buddies Of This Participant", admin_participant_buddies_path(resource)
     end
   end
 
@@ -39,7 +87,7 @@ ActiveAdmin.register Participant, namespace: :admin do
     selectable_column
     id_column
     column :name
-    column :kcl_email
+    column :email
     column :gender do |participant|
       Participant.gender_map(participant.gender)
     end
@@ -68,7 +116,7 @@ ActiveAdmin.register Participant, namespace: :admin do
   end
 
   filter :name, as: :string
-  filter :kcl_email, as: :string
+  filter :email, as: :string
 
   filter :gender, as: :select, collection: [['Male', 1], ['Female', 2], ['Other', 0]]
 
@@ -90,7 +138,7 @@ ActiveAdmin.register Participant, namespace: :admin do
 
     attributes_table do
       row :name
-      row :kcl_email
+      row :email
       row :gender do |participant|
         Participant.gender_map(participant.gender)
       end
@@ -102,24 +150,30 @@ ActiveAdmin.register Participant, namespace: :admin do
       row :department
       row :program
       row :year
-      row :participant_id do |participant|
-        Participant.buddy_map(participant.participant_id)
+      row "Paired Buddy" do |participant|
+        Participant.detailed_buddy_map(participant.participant_id)
       end
       row :need_special_care
       row :gender_preference do |participant|
         Participant.gender_preference_map(participant.gender_preference)
       end
+      row :created_at
     end
 
     active_admin_comments
   end
 
   form do |f|
+    f.object.buddy_scheme_id = -1
     f.inputs do
+      f.input :email
+
+      if f.object.new_record?
+        f.input :password
+        f.input :password_confirmation
+      end
 
       f.input :name
-      f.input :kcl_email
-
       f.input :gender, :label => 'Gender', :as => :select, :collection => [['Other', 0], ['Male', 1], ['Female', 2]], :include_blank => false
 
       f.input :buddy_scheme_id, :label => 'Choose A Scheme (Or Leave It Blank)', :as => :select, :collection => [['None', -1]] + BuddyScheme.all.map{|scheme| [scheme.name, scheme.id]}, :include_blank => false
@@ -135,9 +189,6 @@ ActiveAdmin.register Participant, namespace: :admin do
 
       f.input :need_special_care
       f.input :gender_preference, :as => :select, :collection => [['Any', 0], ['Same Gender', 1], ['Different Gender', 2]], :include_blank => false
-
-      f.input :participant_id
-
     end
     f.actions
   end
@@ -162,7 +213,7 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
     selectable_column
     id_column
     column :name
-    column :kcl_email
+    column :email
     column :gender do |participant|
       Participant.gender_map(participant.gender)
     end
@@ -197,7 +248,7 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
 
     attributes_table do
       row :name
-      row :kcl_email
+      row :email
       row :gender do |participant|
         Participant.gender_map(participant.gender)
       end
@@ -209,11 +260,11 @@ ActiveAdmin.register Participant, as: 'Buddy', namespace: :admin do
       row :department
       row :program
       row :year
-      row :participant_id
       row :need_special_care
       row :gender_preference do |participant|
         Participant.gender_preference_map(participant.gender_preference)
       end
+      row :created_at
     end
 
     active_admin_comments

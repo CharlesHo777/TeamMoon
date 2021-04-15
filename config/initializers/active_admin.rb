@@ -4,11 +4,12 @@ ActiveAdmin.setup do |config|
   # config.authentication_method = :authenticate_admin_user!
   # config.current_user_method = :current_admin_user
   # config.logout_link_path = :destroy_admin_user_session_path
+  config.default_per_page = 50
   config.batch_actions = true
   config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
   config.localize_format = :long
 
-  config.load_paths = [File.expand_path('app/admin', Rails.root), File.expand_path('app/coord', Rails.root)]
+  config.load_paths = [File.expand_path('app/admin', Rails.root), File.expand_path('app/coord', Rails.root), File.expand_path('app/user', Rails.root)]
 
   # config.default_namespace = :coord
 
@@ -17,6 +18,7 @@ ActiveAdmin.setup do |config|
     admin.authentication_method = :authenticate_admin_user!
     admin.current_user_method = :current_admin_user
     admin.logout_link_path = :destroy_admin_user_session_path
+    admin.logout_link_method = :delete
   end
 
   config.namespace :coord do |coord|
@@ -24,6 +26,15 @@ ActiveAdmin.setup do |config|
     coord.authentication_method = :authenticate_coord_user!
     coord.current_user_method = :current_coord_user
     coord.logout_link_path = :destroy_coord_user_session_path
+    coord.logout_link_method = :delete
+  end
+
+  config.namespace :user do |user|
+    user.site_title = "Team Mars Buddy Scheme"
+    user.authentication_method = :authenticate_participant!
+    user.current_user_method = :current_participant
+    user.logout_link_path = :destroy_participant_session_path
+    user.logout_link_method = :delete
   end
 
   # == Site Title

@@ -16,7 +16,7 @@ module TeamMars
       Devise::RegistrationsController.layout "active_admin_logged_out"
       # Devise::ConfirmationsController.layout ""
       # Devise::UnlocksController.layout ""
-      # Devise::PasswordsController.layout ""
+      Devise::PasswordsController.layout "active_admin_logged_out"
     end
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -25,3 +25,4 @@ module TeamMars
     # the framework and any gems in your application.
   end
 end
+

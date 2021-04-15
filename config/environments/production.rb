@@ -1,5 +1,9 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -26,7 +30,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -109,4 +113,21 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  config.active_record.dump_schema_after_migration = false
+  config.action_mailer.asset_host = 'http://localhost:3000'
+  config.assets.raise_runtime_errors = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
+  config.action_mailer.default_options = { from: "Team Mars <team@mars>" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'localhost:3000',
+    user_name:            'team.mars.buddy.scheme@gmail.com',
+    password:             '69::lana-rhoades::69',
+    authentication:       'plain',
+    #enable_starttls_auto: true
+  }
+  config.action_mailer.perform_deliveries = true
 end

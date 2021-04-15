@@ -1,0 +1,164 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Inter", sans-serif;
+	background-image: linear-gradient(#ed662b, #46393b);
+}
+
+.login-text {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom : 620px;
+	margin-top : 25px;
+
+}
+
+h1 {
+	font-size: 8vw;
+	font-weight: 900;
+	background-color: none;
+	color: #ffa343;
+	display: block;
+	padding: .5em;
+	text-shadow : 0px 0px 10px  #46393b;
+}
+
+
+
+.login-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.login-form{
+	border: 1px solid #ffa343 !important;
+	width: 50% !important;
+	margin-left : 25% !important;
+	margin-top: 18% !important;
+	opacity: 0.8 !important;
+	transition-duration: 0.6s !important;
+	text-align: center !important;
+	opacity: 0.9 !important;
+	padding-bottom : 3% !important;
+	padding-top : 2% !important;
+	box-shadow: 0px 0px 10px #ffa343;
+	
+}
+
+.signup-form{
+	border: 1px solid #ffa343 !important;
+	width: 50% !important;
+	margin-left : 25% !important;
+	margin-top: 13% !important;
+	opacity: 0.8 !important;
+	transition-duration: 0.6s !important;
+	text-align: center !important;
+	opacity: 0.9 !important;
+	padding-bottom : 3% !important;
+	padding-top : 2% !important;
+	box-shadow: 0px 0px 10px #ffa343;
+}
+
+h2{
+	font-size: 47px;
+	font-family: 'New Tegomin', serif;
+	color : #e1d1c1 !important;
+}
+
+
+input{
+	transition-duration : 0.8s;
+}
+
+input:hover{
+	opacity : 1.0;
+	box-shadow: 1px 1px 7px #ffa343;
+}
+
+.user-id{
+	color : #e1d1c1;	
+	font-family: 'Dancing Script', cursive;
+	transition-duration : 0.8s;
+}
+
+
+#username, #user_email, #email{
+	width : 60%;
+	margin-top: 1px;
+	margin-bottom: 5px;
+	background-color : #9c9999;
+	
+	
+}
+
+#password, #user_year_of_study, #user_password, #password_reset_email{
+	width : 60%;
+	background-color : #9c9999;
+	
+}
+
+.login-btn{
+	background-image : none !important;
+	background-color : transparent !important;
+	color: white !important;
+	border-radius : 0px !important;
+	border : 1px solid white !important;
+	transition-duration : 0.7s !important;
+	padding-top : 2% !important;
+	padding-bottom : 2% !important;
+	
+
+}
+
+.login-btn:hover{
+	background-image : none !important;
+	box-shadow : 2px 2px 5px grey;
+	padding-top : 2%;
+	padding-bottom : 2% !important;
+	background-color : #ffa343 !important;
+	color : black !important;
+	
+}
+
+.forgot_password{
+	color : #e1d1c1 !important;
+	text-decoration : none !important;
+	margin-top : 2% !important;
+}
+
+.forgot_password:hover{
+	text-decoration : underline !important;
+}
+
+.forgot-pass{
+	font-size : 210% !important;
+}
+
+
+//SIGNUP PAGE
+
+.signup-input{
+	width : 50% !important;
+	margin-bottom : 2% !important;
+}

@@ -2,8 +2,7 @@ class CreateParticipants < ActiveRecord::Migration[6.0]
   def change
     create_table :participants do |t|
 
-      t.string :name, null: false
-      t.string :kcl_email, null: false
+      t.string :name, null: false, default: ""
 
       # Gender: 0 for other/unspecified
       # 1 for male; 2 for female

@@ -1,5 +1,9 @@
 class Participant < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
   has_many :participants
+
   # belongs_to :buddy_scheme
   FACULTIES = ["Arts & Humanities", "King's Business School", "Dentistry, Oral & Craniofacial Sciences", "Law", "Life Sciences & Medicine", "Natural & Mathematical Sciences", "Nursing, Midwifery & Palliative Care", "Psychiatry, Psychology & Neuroscience", "Social Science & Public Policy"]
 
@@ -30,6 +34,17 @@ class Participant < ApplicationRecord
   def self.buddy_map(buddy_id)
     if Participant.exists?(id: [buddy_id])
       Participant.find(buddy_id).name
+    elsif buddy_id <= -2
+      "[Multiple Buddies]"
+    else
+      "(Not Paired)"
+    end
+  end
+
+  def self.detailed_buddy_map(buddy_id)
+    if Participant.exists?(id: [buddy_id])
+      buddy = Participant.find(buddy_id)
+      "#{buddy.name}, #{buddy.department}, #{buddy.email}"
     elsif buddy_id <= -2
       "[Multiple Buddies]"
     else

@@ -4,18 +4,13 @@ class CoordUsers::SessionsController < Devise::SessionsController
 
   # include Accessible
   # skip_before_action :check_user, only: :destroy
+  # before_action :configure_sign_in_params, only: [:create]
 
+  # GET /resource/sign_in
   def new
     Devise::SessionsController.layout "active_admin_logged_out"
     super
   end
-
-  # before_action :configure_sign_in_params, only: [:create]
-
-  # GET /resource/sign_in
-  # def new
-  #   super
-  # end
 
   # POST /resource/sign_in
   def create

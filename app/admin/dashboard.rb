@@ -6,7 +6,7 @@ ActiveAdmin.register_page "Dashboard", namespace: :admin do
   end
 
   action_item :edit_my_account do
-    link_to("Edit My Account", edit_admin_user_registration_path)
+    link_to("Change Email Or Password", edit_admin_user_registration_path)
   end
 
   content title: proc { I18n.t("active_admin.dashboard") } do

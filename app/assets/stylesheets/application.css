@@ -13,3 +13,135 @@
  *= require_tree .
  *= require_self
  */
+
+ .sidebar{
+	background-image: none;
+	background-color: #acabab38;
+
+}
+
+.sidebar-brand-text{
+	font-family: 'Imbue', serif;
+	color: black;
+	background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/King%27s_College_London_logo.svg/1280px-King%27s_College_London_logo.svg.png');
+	width: 170px;
+	background-size: contain;
+	height: 150px;
+	margin-top: 100px;
+	padding: 0px !important;
+	background-repeat: no-repeat;
+}
+
+.sidebar-heading{
+	color: #ffffffc7 !important;
+	margin-top: 30%;
+	text-align: center !important;
+	margin-bottom: 10%;
+}
+
+.nav-link{
+	color : #ffffffc7 !important;
+	text-decoration: none !important;
+
+}
+
+.sidebar-divider{
+	color: #ffffffc7 !important;
+	margin-top: 100px;
+}
+
+#content-wrapper{
+	background-color: #acabab38 !important;
+
+}
+
+.topbar{
+	background-color: #f3a048b8 !important;
+    box-shadow: 1px 1px 10px #677988 !important;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.card-header{
+	background-color: #ec9449 !important;
+
+}
+
+.card-body{
+	background-color: #ffc990;
+}
+
+.card-header>h6{
+	color: #ffffffc7 !important;
+}
+
+.nav-link > span{
+	font-size: 100% !important;
+
+}
+
+.nav-item, .nav-item span{
+	transition-duration: 0.6s;
+
+}
+#userDropdown span{
+	margin:0px;
+	color:white !important;
+	font-weight:525px !important;
+	font-size:110% !important;
+}
+
+#userDropdown:hover span{
+	margin:0px;
+	color:black !important;
+	font-weight:525px !important;
+	font-size:110% !important;
+}
+
+
+
+.nav-item:hover{
+	background-color: #ffc990;
+	color: black !important;
+	box-shadow: 1px 1px 5px white;
+	border : 2px blue !important;
+
+}
+
+.nav-item:hover span, .nav-item:hover a{
+	color: black !important;
+	font-weight: 525;
+
+
+}
+
+.nav-item-p:hover{
+	background-color: #f3a048b8 ;
+	color: white !important;
+	box-shadow: 1px 1px 5px white;
+	border : 2px blue !important;
+
+}
+
+.nav-item-p:hover span, .nav-item-p:hover a{
+	color: black !important;
+	font-weight: 525;
+}
+
+.sticky-footer{
+	color:white;
+	background-color: transparent !important;
+	font-weight:510;
+	box-shadow: 0px 0px 10px #ffc990;
+}
+
+.bud-greet{
+	margin-left: auto;
+	margin-top: 1%;
+}
+
+.bud-greet h3{
+	color: white;
+	text-shadow: 2px 2px 10px brown;
+	letter-spacing: 3px;
+	font-size: 225%;
+}

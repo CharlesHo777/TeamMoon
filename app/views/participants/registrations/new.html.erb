@@ -1,0 +1,76 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "participants/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <br /><br />
+
+  <div class="field">
+    <%= f.label :name, "Full Name" %><br />
+    <%= f.text_field :name, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender, "Gender" %><br />
+    <%= f.select :gender, [['Male', 1], ['Female', 2], ['Other', 0]], include_blank: false, autocomplete: "gender" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :is_mentor, "Do You Want To Be A Mentor Or Mentee?" %><br />
+    <%= f.select :is_mentor, [['Mentee', false], ['Mentor', true]], include_blank: false, autocomplete: "is_mentor" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :faculty, "Faculty" %><br />
+    <%= f.select :faculty, Participant.faculties, include_blank: false, autocomplete: "faculty" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :department, "Department" %><br />
+    <%= f.select :department, Participant.departments, include_blank: false, autocomplete: "department" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :program, "Program" %><br />
+    <%= f.text_field :program, autocomplete: "program" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :year, "Year (e.g. \"1\", \"2\", \"3\", etc.)" %><br />
+    <%= f.number_field :year, autocomplete: "year" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :need_special_care, "Do You Require Special Care?" %><br />
+    <%= f.check_box :need_special_care, autocomplete: "need_special_care" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender_preference, "Do You Have Any Gender Preference For Your Buddy?" %><br />
+    <%= f.select :gender_preference, [['Any Gender', 0], ['Same Gender', 1], ['Different Gender', 2]], autocomplete: "gender_preference" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "participants/shared/links" %>

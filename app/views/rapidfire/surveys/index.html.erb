@@ -1,0 +1,40 @@
+<div class="p-3 mb-8 bg-secondary text-center text-white" style="margin-bottom:0">
+  <p class="h3 font-weight-italic">
+  Questionnaires
+  </p>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-light navabr-dark">
+<td>
+    <% if can_administer? %>
+    <%= link_to new_survey_path do %>
+    <button type="button class="btn btn-light btn-sm">New Questionnaire</button>
+  <% end %>
+  <% end %>
+</td>
+
+<td>
+  <%= link_to '/' do %>
+  <button type="button class="btn btn-light btn-sm">Back to Dashboard</button>
+<% end %>
+</nav>
+<table class="table table-striped">
+
+  <colgroup>
+    <col>
+    <col width="250">
+  </colgroup>
+  <thead class="thead-light">
+    <tr>
+      <th>Questionnaire</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "survey", collection: @surveys %>
+  </tbody>
+</table>
+
+<% if defined?(Kaminari) %>
+  <%= paginate @surveys %>
+<% end %>

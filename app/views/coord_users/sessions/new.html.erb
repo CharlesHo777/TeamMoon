@@ -1,5 +1,7 @@
 <h2>Team Mars Buddy Scheme (Coordinator Login)</h2>
 
+<a href="/user/login">Click here for REGULAR USER LOGIN</a>
+<br /><br />
 <a href="/admin/login">Click here for ADMINISTRATOR LOGIN</a>
 <br /><br />
 
@@ -8,12 +10,12 @@
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
-
+  <br />
   <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
-
+  <br />
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
@@ -24,6 +26,7 @@
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
+  <br />
 <% end %>
 
 <%= render "coord_users/shared/links" %>
